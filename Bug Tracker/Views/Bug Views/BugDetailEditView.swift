@@ -1,5 +1,5 @@
 //
-//  DetailEditView.swift
+//  BugDetailEditView.swift
 //  Bug Tracker
 //
 //  Created by Magdiel Borges on 11/4/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailEditView: View {
+struct BugDetailEditView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var store : StorageProvider
     @ObservedObject var bug: Bug
@@ -117,9 +117,9 @@ struct DetailEditView: View {
     }
 }
 
-struct DetailEditView_Previews: PreviewProvider {
+struct BugDetailEditView_Previews: PreviewProvider {
     static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
-        DetailEditView(bug: Bug(context: context))
+        BugDetailEditView(bug: Bug(context: context))
     }
 }

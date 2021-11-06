@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProjectView.swift
 //  Bug Tracker
 //
 //  Created by Magdiel Borges on 11/4/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ProjectView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var store : StorageProvider
     @ObservedObject var project: Project
@@ -101,7 +101,7 @@ struct CellView: View {
                 .italic()
         }
             .sheet(isPresented: $showDetailEditSheet){
-                DetailEditView(bug: bug)
+                BugDetailEditView(bug: bug)
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                 if bug.fixed == false {
@@ -132,12 +132,12 @@ struct CellView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ProjectView_Previews: PreviewProvider {
     static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
         Group {
             NavigationView {
-                ContentView(project: Project(context: context))
+                ProjectView(project: Project(context: context))
                     .previewDevice("iPhone 13 Pro Max")
             }
             CellView(bug: Bug(context: context))

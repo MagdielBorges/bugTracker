@@ -14,7 +14,7 @@ struct NavigationCellView: View {
     @State private var showProjectDetailSheet = false
     @State private var showingDeleteAlert = false
     var body: some View {
-        NavigationLink(destination: ContentView(project: project)){
+        NavigationLink(destination: ProjectView(project: project)){
             VStack {
                 Text(project.title)
                     .font(.title2).fontWeight(.light)
