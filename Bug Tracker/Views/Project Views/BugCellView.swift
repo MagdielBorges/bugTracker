@@ -25,6 +25,7 @@ struct BugCellView: View {
                 if bug.fixed == false {
                     Button("Mark as Fixed"){
                         bug.fixed = true
+                        bug.project.objectWillChange.send()
                     }
                     .tint(.green)
                 }
