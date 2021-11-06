@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Bug" representedClassName="Bug" syncable="YES" codeGenerationType="class">
+        <attribute name="creationDate_" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="detail_" optional="YES" attributeType="String"/>
+        <attribute name="fixed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="highPriority" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title_" optional="YES" attributeType="String"/>
+        <relationship name="project_" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="bugs_" inverseEntity="Project"/>
+    </entity>
+    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="creationDate_" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="showFixedBugs" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title_" optional="YES" attributeType="String"/>
+        <relationship name="bugs_" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bug" inverseName="project_" inverseEntity="Bug"/>
+    </entity>
+    <elements>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Bug" positionX="-54" positionY="9" width="128" height="119"/>
+    </elements>
+</model>
