@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF3274BF2736F94700401711 /* BugCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3274BE2736F94700401711 /* BugCellView.swift */; };
 		DF6A66462734A2E900EA159C /* Bug_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A66452734A2E900EA159C /* Bug_TrackerApp.swift */; };
 		DF6A66482734A2E900EA159C /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A66472734A2E900EA159C /* ProjectView.swift */; };
 		DF6A664A2734A2EA00EA159C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF6A66492734A2EA00EA159C /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF3274BE2736F94700401711 /* BugCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BugCellView.swift; sourceTree = "<group>"; };
 		DF6A66422734A2E900EA159C /* Bug Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bug Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF6A66452734A2E900EA159C /* Bug_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bug_TrackerApp.swift; sourceTree = "<group>"; };
 		DF6A66472734A2E900EA159C /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				DF6A66472734A2E900EA159C /* ProjectView.swift */,
+				DF3274BE2736F94700401711 /* BugCellView.swift */,
 				DF6A665A2734B88600EA159C /* ProjectDetailsEditView.swift */,
 				DF6A66622734CBCB00EA159C /* NewProjectView.swift */,
 			);
@@ -213,6 +216,7 @@
 				DF6A66652734CECA00EA159C /* NewBugView.swift in Sources */,
 				DF6A66562734B54E00EA159C /* BugDetailEditView.swift in Sources */,
 				DF6A66592734B70500EA159C /* BugTracker.xcdatamodeld in Sources */,
+				DF3274BF2736F94700401711 /* BugCellView.swift in Sources */,
 				DF6A665F2734C4E500EA159C /* NavigationCellView.swift in Sources */,
 				DF6A665D2734BFD000EA159C /* StorageProvider.swift in Sources */,
 			);

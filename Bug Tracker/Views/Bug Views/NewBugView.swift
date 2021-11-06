@@ -11,6 +11,10 @@ struct NewBugView: View {
     @Environment(\.dismiss) var dismiss
     let project: Project
     @EnvironmentObject var store: StorageProvider
+    enum Field {
+        case title, detail
+    }
+    @FocusState var focusState : Field?
     @State private var title = ""
     @State private var detail = ""
     @State private var highPriority = false
@@ -20,7 +24,20 @@ struct NewBugView: View {
             Form {
                 Section {
                     TextField("Bug Title", text: $title)
-                    TextField("Detailed Description", text: $detail)
+                        .focused($focusState, equals: .title)
+                    ZStack(alignment: .topLeading){
+                        Text(detail).opacity(0).padding(8)
+                        TextEditor(text: $detail)
+                            .focused($focusState, equals: .detail)
+                        if detail.isEmpty {
+                            Text("Bug Details")
+                                .foregroundColor(.secondary)
+                                .padding(8)
+                                .onTapGesture {
+                                    focusState = .detail
+                                }
+                        }
+                    }
                 }
                 Section {
                     Toggle(isOn: $highPriority) {

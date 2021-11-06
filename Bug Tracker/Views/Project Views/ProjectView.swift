@@ -26,27 +26,7 @@ struct ProjectView: View {
         }
         .navigationTitle(project.title)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing){
-                Menu {
-                    Button("New Bug"){
-                        activeSheet = .newBug
-                        print(activeSheet)
-                        showSheet = true
-                    }
-                    Button("Edit Details"){
-                        activeSheet = .projectDetails
-                        print(activeSheet)
-                        showSheet = true
-                    }
-                    Button("Delete Project", role: .destructive){
-                        showingDeleteAlert = true
-                    }
-                } label : {
-                    Text("Menu")
-                }
-            }
-        }
+        .toolbar { toolbarContent() }
         .sheet(isPresented: $showSheet){
             switch activeSheet {
             case .newBug:
@@ -72,14 +52,14 @@ struct ProjectView: View {
                 Text("This project is empty.")
             }
             ForEach(project.bugsSorted) { bug in
-                CellView(bug: bug)
+                BugCellView(bug: bug)
             }
         } else {
             if project.unfixedBugs.isEmpty {
                 Text("Currently, all bugs are fixed in this project.")
             }
             ForEach(project.unfixedBugs) { bug in
-                CellView(bug: bug)
+                BugCellView(bug: bug)
             }
         }
     }
@@ -89,48 +69,38 @@ struct ProjectView: View {
             showSheet = true
         }
     }
+    
+    @ToolbarContentBuilder
+    func toolbarContent() -> some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing){
+            Menu {
+                Button(action: {
+                    activeSheet = .newBug
+                    print(activeSheet)
+                    showSheet = true
+                }){
+                    Label("New Bug", systemImage: "plus.circle")
+                }
+                Button(action: {
+                    activeSheet = .projectDetails
+                    print(activeSheet)
+                    showSheet = true
+                }){
+                    Label("Edit Details", systemImage: "pencil")
+                }
+                Button(role: .destructive, action: {
+                    showingDeleteAlert = true
+                }){
+                    Label("Delete Project", systemImage: "trash")
+                }
+            } label : {
+                Text("Menu")
+            }
+        }
+    }
 }
 
-struct CellView: View {
-    @ObservedObject var bug: Bug
-    @State private var showDetailEditSheet = false
-    var body: some View {
-        VStack {
-            bugTitle
-            Text(bug.detail)
-                .italic()
-        }
-            .sheet(isPresented: $showDetailEditSheet){
-                BugDetailEditView(bug: bug)
-            }
-            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                if bug.fixed == false {
-                    Button("Mark as Fixed"){
-                        bug.fixed = true
-                    }
-                    .tint(.green)
-                }
-                Button("Edit Details"){
-                    showDetailEditSheet = true
-                }
-                .tint(.gray)
-            }
-    }
-    @ViewBuilder
-    var bugTitle: some View {
-        if bug.fixed {
-            Text(bug.title)
-                .foregroundColor(.secondary)
-                .strikethrough()
-        } else if bug.highPriority {
-            Text(bug.title)
-                .bold()
-                .background(.red)
-        } else {
-            Text(bug.title)
-        }
-    }
-}
+
 
 struct ProjectView_Previews: PreviewProvider {
     static var context = StorageProvider().persistentContainer.viewContext
@@ -140,7 +110,7 @@ struct ProjectView_Previews: PreviewProvider {
                 ProjectView(project: Project(context: context))
                     .previewDevice("iPhone 13 Pro Max")
             }
-            CellView(bug: Bug(context: context))
+            BugCellView(bug: Bug(context: context))
                 .previewLayout(.sizeThatFits)
         }
     }

@@ -33,14 +33,7 @@ struct NavigationCellView: View {
             .padding()
             .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
         }
-        .contextMenu {
-            Button("Edit Details"){
-                showProjectDetailSheet = true
-            }
-            Button("Delete Project"){
-                showingDeleteAlert = true
-            }
-        }
+        .contextMenu { contextMenu }
         .sheet(isPresented: $showProjectDetailSheet){
             ProjectDetailsEditView(project: project)
         }
@@ -52,6 +45,20 @@ struct NavigationCellView: View {
         } message : {
             Text("Are you sure you want to delete this project? This cannot be undone.")
         }
+    }
+    @ViewBuilder
+    var contextMenu: some View {
+        Button(action: {
+            showProjectDetailSheet = true
+        }){
+            Label("Edit Details", systemImage: "pencil")
+        }
+        Button(role: .destructive, action: {
+            showingDeleteAlert = true
+        }){
+            Label("Delete Project", systemImage: "trash")
+        }
+        .tint(.red)
     }
 }
 
