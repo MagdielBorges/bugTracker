@@ -44,4 +44,16 @@ extension Bug {
             }
         }
     }
+    
+    static var preview : Bug {
+        let context = StorageProvider().persistentContainer.viewContext
+        let bug = Bug(context: context)
+        bug.title = "Preview Bug"
+        bug.project = Project(context: context)
+        bug.detail = "A bug for previews."
+        bug.highPriority = false
+        bug.creationDate = Date()
+        bug.fixed = false
+        return bug
+    }
 }

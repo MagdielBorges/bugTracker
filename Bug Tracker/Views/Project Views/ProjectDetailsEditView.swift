@@ -51,8 +51,7 @@ struct ProjectDetailsEditView: View {
 }
 
 struct ProjectDetailsEditView_Previews: PreviewProvider {
-    static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
-        ProjectDetailsEditView(project: Project(context: context))
+        ProjectDetailsEditView(project: Project.preview)
     }
 }

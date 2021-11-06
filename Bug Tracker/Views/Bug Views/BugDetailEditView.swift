@@ -120,6 +120,6 @@ struct BugDetailEditView: View {
 struct BugDetailEditView_Previews: PreviewProvider {
     static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
-        BugDetailEditView(bug: Bug(context: context))
+        BugDetailEditView(bug: Bug.preview)
     }
 }

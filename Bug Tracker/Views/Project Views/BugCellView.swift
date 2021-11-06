@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BugCellView: View {
+    @EnvironmentObject var store: StorageProvider
     @ObservedObject var bug: Bug
     @State private var showDetailEditSheet = false
     var body: some View {
@@ -21,19 +22,11 @@ struct BugCellView: View {
             .sheet(isPresented: $showDetailEditSheet){
                 BugDetailEditView(bug: bug)
             }
+            .contextMenu { contextMenu }
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                if bug.fixed == false {
-                    Button("Mark as Fixed"){
-                        bug.fixed = true
-                        bug.project.objectWillChange.send()
-                    }
-                    .tint(.green)
-                }
-                Button("Edit Details"){
-                    showDetailEditSheet = true
-                }
-                .tint(.gray)
+                swipeActions
             }
+            
     }
     @ViewBuilder
     var bugTitle: some View {
@@ -49,11 +42,44 @@ struct BugCellView: View {
             Text(bug.title)
         }
     }
+    @ViewBuilder
+    var swipeActions : some View {
+        Button(bug.fixed ? "Mark as Bugged" : "Mark as Fixed"){
+            bug.fixed.toggle()
+            bug.project.objectWillChange.send()
+            store.save()
+        }
+        .tint(bug.fixed ? .red : .green)
+        Button(action: {
+            showDetailEditSheet = true
+        }){
+            Label("Edit Details", systemImage: "pencil")
+        }
+        .tint(.gray)
+    }
+    @ViewBuilder
+    var contextMenu : some View {
+        Button(action: {
+            bug.fixed.toggle()
+            bug.project.objectWillChange.send()
+            store.save()
+        }){
+            Label(bug.fixed ? "Mark as Bugged" : "Mark as Fixed", systemImage: "ant")
+            //Right now it's not switching them right away, but it does change once you leave the view and come back.
+        }
+        .tint(bug.fixed ? .red : .green)
+        Button(action: {
+            showDetailEditSheet = true
+        }){
+            Label("Edit Details", systemImage: "pencil")
+        }
+    }
 }
 
 struct BugCellView_Previews : PreviewProvider {
-    static var context = StorageProvider().persistentContainer.viewContext
+
     static var previews: some View {
-        BugCellView(bug: Bug(context: context))
+        BugCellView(bug: Bug.preview)
+            .previewLayout(.sizeThatFits)
     }
 }

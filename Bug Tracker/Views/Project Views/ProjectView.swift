@@ -103,14 +103,13 @@ struct ProjectView: View {
 
 
 struct ProjectView_Previews: PreviewProvider {
-    static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
         Group {
             NavigationView {
-                ProjectView(project: Project(context: context))
+                ProjectView(project: Project.preview)
                     .previewDevice("iPhone 13 Pro Max")
             }
-            BugCellView(bug: Bug(context: context))
+            BugCellView(bug: Bug.preview)
                 .previewLayout(.sizeThatFits)
         }
     }

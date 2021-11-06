@@ -72,4 +72,24 @@ extension Project {
             }
         }
     }
+    
+    static var preview: Project {
+        let context = StorageProvider().persistentContainer.viewContext
+        let project = Project(context: context)
+        project.title = "Preview Project"
+        project.creationDate = Date()
+        project.showFixedBugs = Bool.random()
+        project.active = Bool.random()
+        project.bugs = []
+        for i in 0..<5 {
+            let bug = Bug(context: context)
+            bug.title = "Preview Bug \(i)"
+            bug.project = project
+            bug.creationDate = Date()
+            bug.highPriority = Bool.random()
+            bug.detail = "A bug for previews."
+            bug.fixed = Bool.random()
+        }
+        return project
+    }
 }

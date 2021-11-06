@@ -49,6 +49,12 @@ struct NavigationCellView: View {
     @ViewBuilder
     var contextMenu: some View {
         Button(action: {
+            project.active.toggle()
+            store.save()
+        }){
+            Label(project.active ? "Close Project" : "Re-open Project", systemImage: project.active ? "arrow.down" : "arrow.up")
+        }
+        Button(action: {
             showProjectDetailSheet = true
         }){
             Label("Edit Details", systemImage: "pencil")
@@ -63,9 +69,8 @@ struct NavigationCellView: View {
 }
 
 struct NavigationCellView_Previews: PreviewProvider {
-    static var context = StorageProvider().persistentContainer.viewContext
     static var previews: some View {
-        NavigationCellView(project: Project(context: context))
+        NavigationCellView(project: Project.preview)
             .previewLayout(.sizeThatFits)
     }
 }
